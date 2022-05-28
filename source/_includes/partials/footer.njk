@@ -1,0 +1,18 @@
+
+<h2>This is footer</h2>
+
+<ul>
+    {#- Eleventy's filter test -#}
+    {%- set items = collections.all | dummyFilter -%}
+    {% for item in items %}
+        <li>
+        {%- if page.url == item.url %}
+            <strong>{{ item.title | escape }}</strong>
+        {% else %}
+            <a href="{{ item.url }}">{{ item.title | escape }}</a>
+        {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<p>Built with <a href="https://picocss.com/examples/basic-template/">Basic template</a> of <a href="https://picocss.com">Pico</a>.</p>

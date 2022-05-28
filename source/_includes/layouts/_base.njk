@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ site.language }}">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ site.name | escape }} - {{ title | escape }}</title>
+        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
+        <script></script>
+    </head>
+
+    <body>
+        {% include 'partials/github.njk' %}
+
+        <header class="container">
+            {% include 'partials/header.njk' %}
+        </header>
+
+        <main class="container">
+            {% block contentMain %}{% endblock %}
+        </main>
+
+        <footer class="container">
+            {% include 'partials/footer.njk' %}
+        </footer>
+
+    </body>
+
+</html>

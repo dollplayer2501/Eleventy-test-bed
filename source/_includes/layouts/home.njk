@@ -1,0 +1,17 @@
+{% extends 'layouts/_base.njk' %}
+
+
+{% block contentMain %}
+    {{ content | safe }}
+
+    <!-- Section -->
+    {% set items = collections.contentsSections %}
+    {% for item in items %}
+        <article id="article">
+            <h2>{{ item.data.subtitle | escape }}</h2>
+            {{ item.templateContent | safe }}
+            <footer><small>{{ item.filePathStem | safe }}</small></footer>
+        </article>
+    {% endfor %}
+
+{% endblock %}
