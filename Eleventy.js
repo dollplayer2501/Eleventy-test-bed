@@ -143,9 +143,12 @@ function htmlminTransform(content, outputPath) {
 
     if (outputPath.endsWith('.html')) {
         let minified = htmlmin.minify(content, {
+            // 【備忘録】HTMLMinifierの全オプションについて調査した - Qiita
+            //  https://qiita.com/ryo_hisano/items/9d41cd447a69943f8eb1
             useShortDoctype: true,
             removeComments: true,
             collapseWhitespace: true,
+            minifyJS: true
         });
         return minified;
     }
