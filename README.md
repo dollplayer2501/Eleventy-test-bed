@@ -3,6 +3,12 @@
 
 ## What is this ?
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/f99d6c1e-032f-4a47-9913-f703cb725c03/deploy-status)](https://app.netlify.com/sites/eleventy-test-bed-dollplayer2501/deploys)
+
+
+[Demo site (Eleventy test bed)](https://eleventy-test-bed-dollplayer2501.netlify.app/)
+
+
 This is not something that can be used in a production environment as it is.  
 I made this to see the functionality of Eleventy.  
 What I can say for sure is "I made it because I need it, and I published it on GitHub".  
@@ -18,6 +24,29 @@ Below, Japanese translation.
 
 ## Getting started
 
+    git clone git@github.com:dollplayer2501/Eleventy-test-bed.gitt any-path-name
+    cd any-path-name
+
+	# If needed
+    nvm use
+
+    npm install
+
+    #
+    # 1. Local
+    #   Data is stored in ./any-path-name/_develop
+    #
+    npm run develop:watch
+    # http://localhost:8080
+
+    # 2. Production
+    #   Data is stored in ./any-path-name/_production
+    #   HTML is compressed
+    #
+    npm run product:build
+    # If you want to check production's data
+    npm run product:serve
+    # http://localhost:3000
 
 
 ## Implemented Eleventy's functions
@@ -41,7 +70,8 @@ but I use [Custom filtering and sorting](https://www.11ty.dev/docs/collections/#
 - [Pagination](https://www.11ty.dev/docs/pagination/)
 - [Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)
 - [Image plugin](https://www.11ty.dev/docs/plugins/image/)
-- Compiling the CSS preprocessor, for example Sass, SCSS
+- Compiling the CSS preprocessor, for example Sass, SCSS  
+I use [Pico.css](https://picocss.com/)'s [Basic template](https://picocss.com/examples/basic-template/).
 - Javascript bundles and transpiles
 
 Below, I'm not familiar with it, but I'm implementing it.
