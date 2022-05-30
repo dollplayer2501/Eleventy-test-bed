@@ -1,18 +1,40 @@
+<hr />
 
-<h2>This is footer</h2>
+<div class="grid">
 
-<ul>
-    {#- Eleventy's filter test -#}
-    {%- set items = collections.all | dummyFilter -%}
-    {% for item in items %}
-        <li>
-        {%- if page.url == item.url %}
-            <strong>{{ item.title | escape }}</strong>
-        {% else %}
-            <a href="{{ item.url }}">{{ item.title | escape }}</a>
-        {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+    <div>
+        <h3>Contents</h3>
+        <ul>
+            {% for item in collections.all | setMyCustomOrder | getListTopLevel(page) %}
+                <li>
+                    {% if item.active %}
+                        <strong>{{ item.title | safe }}</strong>
+                    {% else %}
+                        <a href="{{ item.url }}">{{ item.title | safe }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<p>Built with <a href="https://www.11ty.dev/">Eleventy</a> and <a href="https://picocss.com/examples/basic-template/">Basic template</a> of <a href="https://picocss.com">Pico</a>.</p>
+    <div>
+        <h3>Recent updates</h3>
+        <ul>
+            {% for item in collections.all | setMyCustomOrder | getListRecentUpdated(page, 5) %}
+                <li>
+                    <small>{{ item.date | readableDateShort }}</small>
+                    {% if item.active %}
+                        <strong>{{ item.title | safe }}</strong>
+                    {% else %}
+                        <a href="{{ item.url }}">{{ item.title | safe }}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+<hr />
+
+<p>Built with <a href="https://www.11ty.dev/">Eleventy</a> and <a href="https://picocss.com/examples/basic-template/">Basic template</a> of <a href="https://picocss.com">Pico.css</a>.</p>

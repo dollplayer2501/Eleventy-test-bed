@@ -1,0 +1,10 @@
+---
+title: Parent02 - Child02
+permalink: /parent02/child02/index.html
+order: 2
+layout: post.njk
+---
+
+### {{ title }}
+
+Et aspernatur corporis est aperiam eligendi et fugit velit ea reiciendis veritatis sed beatae tempora non pariatur rerum. Est sapiente facere et exercitationem magnam et vero esse quo eveniet doloremque qui voluptatem iusto.

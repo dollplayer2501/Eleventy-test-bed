@@ -1,4 +1,16 @@
 <hgroup>
-  <h1><a href="/">{{ site.name | escape }}</a></h1>
-  <h2>{{ title | escape }}</h2>
+    <h1><a href="/">{{ site.name | escape }}</a></h1>
+
+    {% set breadcrumb = '' %}
+    {% for item in collections.all | setMyCustomOrder | getBreadcrumb(page) %}
+        {% if loop.last %}
+            {% set breadcrumb = '<strong>' + breadcrumb + item.title + '</strong>' %}
+        {% else %}
+            {% set breadcrumb = breadcrumb + '<a href="' + item.url + '">' + item.title +'</a>' + ' &raquo; ' %}
+        {% endif %}
+    {% endfor %}
+
+    <hr />
+
+    <h2>{{ breadcrumb | safe }} <small>({{ page.date | readableDateLong }})</small></h2>
 </hgroup>

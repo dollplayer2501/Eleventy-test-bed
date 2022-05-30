@@ -14,6 +14,9 @@ const shortcodes = require('./source/_config/eleventy.shortcodes.js');
 const markdownIt = require('markdown-it');
 
 //
+const { DateTime } = require('luxon');
+
+//
 const fs = require('fs');
 const htmlmin = require('html-minifier');
 
@@ -26,7 +29,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = function (eleventyConfig) {
 
     //
-    // 11ty add plugin
+    // add 11ty's plugin
     //
 
     eleventyConfig.setQuietMode(true);
@@ -48,7 +51,24 @@ module.exports = function (eleventyConfig) {
     // add 11ty's Filer
     //
 
-    eleventyConfig.addFilter('dummyFilter', filters.dummyFilter);
+    eleventyConfig.addFilter('setMyCustomOrder', filters.setMyCustomOrder);
+    eleventyConfig.addFilter('getHeadTitle', filters.getHeadTitle);
+    eleventyConfig.addFilter('getBreadcrumb', filters.getBreadcrumb);
+    eleventyConfig.addFilter('getListTopLevel', filters.getListTopLevel);
+    eleventyConfig.addFilter('getListParentLevelArray', filters.getListParentLevelArray);
+    eleventyConfig.addFilter('getListParentLevelString', filters.getListParentLevelString);
+    eleventyConfig.addFilter('getArticleNext', filters.getArticleNext);
+    eleventyConfig.addFilter('getArticlePrev', filters.getArticlePrev);
+    eleventyConfig.addFilter('getListRecentUpdated', filters.getListRecentUpdated);
+
+    eleventyConfig.addFilter('readableDateLong', function (dateObj) {
+        return DateTime.fromJSDate(dateObj, { zone: 'utc' })
+            .toFormat('MMMM dd, yyyy HH:mm:ss');
+    });
+    eleventyConfig.addFilter('readableDateShort', function (dateObj) {
+        return DateTime.fromJSDate(dateObj, { zone: 'utc' })
+            .toFormat('yyyy-MM-dd');
+    });
 
     //
     // add 11ty's Shorrtcode
@@ -104,16 +124,16 @@ module.exports = function (eleventyConfig) {
     // display 11ty's events
     //
 
+    eleventyConfig.on('eleventy.beforeWatch', async function () {
+        console.log('----  eleventy.beforeWatch  ----');
+    });
+
     eleventyConfig.on('eleventy.before', async function () {
-        console.log('---- eleventy.before ----');
+        console.log('----  eleventy.before       ----');
     });
 
     eleventyConfig.on('eleventy.after', async function () {
-        console.log('---- eleventy.after ----');
-    });
-
-    eleventyConfig.on('eleventy.beforeWatch', async function () {
-        console.log('---- eleventy.beforeWatch ----');
+        console.log('----  eleventy.after        ----');
     });
 
     //

@@ -1,6 +1,7 @@
 ---
-title: Test page
-permalink: /test.html
+title: Test 01 page
+order: 11
+permalink: /test01/index.html
 layout: post.njk
 ---
 

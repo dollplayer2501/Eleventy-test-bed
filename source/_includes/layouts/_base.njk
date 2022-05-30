@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{{ site.name | escape }} - {{ title | escape }}</title>
+        <title>{{ collections.all | setMyCustomOrder | getHeadTitle(page, site.name, '&raquo;') }}</title>
         <meta name="generator" content="{{ eleventy.generator | safe }}" />
         <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.GoogleAnalytics4 | safe}}"></script>
@@ -25,6 +25,33 @@
 
         <main class="container">
             {% block contentMain %}{% endblock %}
+
+            <!-- Next or Prev articles ? -->
+            {% set item_next = collections.all | setMyCustomOrder | getArticleNext(page) %}
+            {% set item_prev = collections.all | setMyCustomOrder | getArticlePrev(page) %}
+
+            {% if 0 < item_next | length or 0 < item_prev | length %}
+                <hr />
+                <dl>
+                    {% if 0 < item_next | length %}
+                        <dt><strong>Next articles:</strong></dt>
+                        <dd><a href="{{ item_next.url }}">{{ item_next.title }}</a></dd>
+                    {% endif %}
+                    {% if 0 < item_prev | length %}
+                        <dt><strong>Previous articles:</strong></dt>
+                        <dd><a href="{{ item_prev.url }}">{{ item_prev.title }}</a></dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
+
+            <!-- Related articles ? -->
+            {% set items = collections.all | setMyCustomOrder | getListParentLevelArray(page) %}
+            {% if 1 < items | length %}
+                <hr />
+                <h3>Related articles</h3>
+                {% set item = items | getListParentLevelString %}
+                {{ item | safe }}
+            {% endif %}
         </main>
 
         <footer class="container">
