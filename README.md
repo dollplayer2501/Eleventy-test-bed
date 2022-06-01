@@ -55,6 +55,7 @@ Mainly implements the following functions.
 - Top and 404 page, and one more page
 - Separation between local environment and production environment  
 Specifically, isolation of the output directory and compression of HTML only in the production environment.
+- Implementation of unique sort order described later
 
 The following **mainly** functions are not implemented.
 
@@ -112,7 +113,7 @@ Character string sorting is performed using this character string as a key.
 Inside the program, sprintf-js is used instead of "_", and spaces are used, which is 12 digits.
 
 
-## Real intention / 本音
+## Real intention
 
 I wanted to see how Eleventy's navigation and image plugins behave. So I was building the minimal Eleventy I needed. In the meantime, I thought it would be interesting to make this publicly available.  
 This is the real intention.
