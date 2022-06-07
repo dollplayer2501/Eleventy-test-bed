@@ -63,7 +63,8 @@ The following **mainly** functions are not implemented.
 but I use [Custom filtering and sorting](https://www.11ty.dev/docs/collections/#advanced-custom-filtering-and-sorting).
 - [Pagination](https://www.11ty.dev/docs/pagination/)
 - [Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)
-- [Image plugin](https://www.11ty.dev/docs/plugins/image/)
+- [Image plugin](https://www.11ty.dev/docs/plugins/image/)  
+Instead of this, implement [lightbbox2](https://lokeshdhakar.com/projects/lightbox2/)
 - Compiling the CSS preprocessor, for example Sass, SCSS  
 I use [Pico.css](https://picocss.com/)'s [Basic template](https://picocss.com/examples/basic-template/).
 - Javascript bundles and transpiles

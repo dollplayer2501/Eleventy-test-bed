@@ -13,10 +13,15 @@ const childProcess = require('child_process');
 
 const getBuildInfo = function () {
     //
-    const latestGitCommitHash = childProcess.execSync('git rev-parse --short HEAD')
-        .toString()
-        .trim();
-    //
+    var latestGitCommitHash = 'ZZZZZZZ';
+    try {
+        latestGitCommitHash = childProcess.execSync('git rev-parse --short HEAD')
+            .toString()
+            .trim();
+    } catch (err) {
+        // console.error(err);
+    }
+
     const now = new Date();
     const timeZone = 'UTC';
     const buildTime = new Intl.DateTimeFormat('en-US', {

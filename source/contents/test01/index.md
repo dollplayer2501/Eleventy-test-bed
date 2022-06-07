@@ -5,6 +5,8 @@ permalink: /test01/index.html
 layout: post.njk
 ---
 
+### {{ title }}
+
 Ut facilis omnis non incidunt suscipit qui suscipit inventore. Est consequuntur sequi 33 expedita dolorum et eaque eligendi a deserunt magni aut magnam quaerat. Hic eius internos est quia quisquam est voluptate fugiat sed fugit enim hic ipsa dolores id quibusdam cumque. In quae voluptatibus sit temporibus illum qui galisum dolorem ut facere dolor. Ut sint autem qui quos voluptates ut laboriosam galisum rem illum quasi eum sunt libero ut quia reprehenderit qui nostrum culpa. Vel provident officiis et voluptate enim est galisum consequatur non natus molestias qui obcaecati voluptatem.
 
 木曾路はすべて山の中である。

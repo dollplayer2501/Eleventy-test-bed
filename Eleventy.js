@@ -74,7 +74,8 @@ module.exports = function (eleventyConfig) {
     // add 11ty's Shorrtcode
     //
 
-    eleventyConfig.addShortcode('dummyShortcode', shortcodes.dummyShortcode);
+    eleventyConfig.addShortcode('setLightbox2', shortcodes.setLightbox2);
+    eleventyConfig.addShortcode('setOneImage', shortcodes.setOneImage);
 
     //
     // set Markdown-it
@@ -103,6 +104,7 @@ module.exports = function (eleventyConfig) {
     //
 
     eleventyConfig.addPassthroughCopy({ 'source/static/assets/style/custom.css': 'assets/style/custom.css' });
+    eleventyConfig.addPassthroughCopy({ 'source/contents/**/*.{jpg,jpeg,png,webp}': './images' });
 
     //
     // chech develop or produuction ?
