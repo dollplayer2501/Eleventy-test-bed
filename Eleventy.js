@@ -103,8 +103,9 @@ module.exports = function (eleventyConfig) {
     // set 11ty's Passthrough File Copy
     //
 
-    eleventyConfig.addPassthroughCopy({ 'source/static/assets/style/custom.css': 'assets/style/custom.css' });
-    eleventyConfig.addPassthroughCopy({ 'source/contents/**/*.{jpg,jpeg,png,webp}': './images' });
+    eleventyConfig.addPassthroughCopy({ './source/static/assets/style/custom.css': './assets/style/custom.css' });
+    eleventyConfig.addPassthroughCopy({ './source/contents/**/*.{jpg,jpeg,png,webp}': './images' });
+    eleventyConfig.addPassthroughCopy({ './source/static/misc/**/*': './' });
 
     //
     // chech develop or produuction ?
@@ -149,7 +150,7 @@ module.exports = function (eleventyConfig) {
         dir: {
             input: './source',
             layouts: './_includes/layouts',
-            output: isProduction ? '_production' : '_develop'
+            output: isProduction ? './_production' : './_develop'
         }
     };
 };
@@ -180,7 +181,7 @@ function htmlminTransform(content, outputPath) {
 
 function browserSyncReady(err, bs) {
     bs.addMiddleware('*', (req, res) => {
-        const content_404 = fs.readFileSync('_develop/404.html');
+        const content_404 = fs.readFileSync('./_develop/404.html');
         res.write(content_404);
         res.writeHead(404);
         res.end();
