@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "develop:clean": "rimraf ./_develop",
-        "develop:eleventy:build": "npx @11ty/eleventy --config=Eleventy.js",
-        "develop:eleventy:watch": "npx @11ty/eleventy --config=Eleventy.js --serve --port=8080",
+        "develop:eleventy:build": "cross-env NODE_ENV=develop npx @11ty/eleventy --config=Eleventy.js --quiet",
+        "develop:eleventy:watch": "cross-env NODE_ENV=develop npx @11ty/eleventy --config=Eleventy.js --quiet --serve --port=8080",
         "develop:clear-build": "npm-run-all --serial develop:clean develop:eleventy:build",
         "develop:only-build": "npm-run-all --serial develop:eleventy:build",
         "develop:watch": "npm-run-all --serial develop:clean develop:eleventy:watch",

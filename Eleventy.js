@@ -32,14 +32,16 @@ module.exports = function (eleventyConfig) {
     // add 11ty's plugin
     //
 
-    eleventyConfig.setQuietMode(true);
-    eleventyConfig.addPlugin(directoryOutputPlugin, {
-        columns: {
-            filesize: true,
-            benchmark: true,
-        },
-        warningFileSize: 400 * 1000,
-    });
+    if (isProduction) {
+        eleventyConfig.setQuietMode(true);
+        eleventyConfig.addPlugin(directoryOutputPlugin, {
+            columns: {
+                filesize: true,
+                benchmark: true,
+            },
+            warningFileSize: 400 * 1000,
+        });
+    }
 
     //
     // add 11ty's Collection
