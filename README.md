@@ -8,6 +8,7 @@
 
 [Demo site (Eleventy test bed)](https://eleventy-test-bed-dollplayer2501.netlify.app/)
 
+<img src="./screenshot.png" width="600">
 
 This is not something that can be used in a production environment as it is.
 I made this to see the functionality of Eleventy.
@@ -17,12 +18,18 @@ By the way, I'm not good at Javascript.
 
 ## Getting started
 
+> **Note**  
+> __2023-06-10, JST__  
+> I changed NPM pachage manager from [nvm](https://github.com/nvm-sh/nvm) to [rtx](https://github.com/jdxcode/rtx).  
+> And I am in the process of migrating my development environment itself from macOS to Linux...[EndeavourOS](https://endeavouros.com/) and Zsh to Fish shell.
+
     git clone git@github.com:dollplayer2501/Eleventy-test-bed.gitt any-path-name
     cd any-path-name
 
-    # If needed
-    nvm use
+    # Check and set your Node.js version, for example in my case
+    rtx activate fish | source
 
+    # Installing NPM packages
     npm install
 
     #
