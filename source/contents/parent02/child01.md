@@ -3,6 +3,7 @@ title: Parent02 - Child01
 permalink: /parent02/child01/index.html
 order: 1
 layout: post.njk
+date: 2022-11-11 00:00:01
 ---
 
 ### {{ title }}

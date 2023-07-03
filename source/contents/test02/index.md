@@ -3,6 +3,7 @@ title: Test 02 page, using lightbox2
 order: 12
 permalink: /test02/index.html
 layout: post.njk
+date: 2022-12-15 00:00:01
 ---
 
 ### {{ title }}

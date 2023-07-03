@@ -3,6 +3,7 @@ title: Test 01 page
 order: 11
 permalink: /test01/index.html
 layout: post.njk
+date: 2022-12-12 00:00:01
 ---
 
 ### {{ title }}

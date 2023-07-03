@@ -3,6 +3,7 @@ title: Parent01 - Child02 - grandchild03
 permalink: /parent01/child02/grandchild03/index.html
 order: 3
 layout: post.njk
+date: 2022-10-22 03:00:01
 ---
 
 ### {{ title }}
