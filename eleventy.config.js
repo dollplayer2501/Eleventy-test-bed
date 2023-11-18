@@ -1,3 +1,4 @@
+'use strict';
 //
 //
 //
@@ -17,7 +18,6 @@ const markdownIt = require('markdown-it');
 const { DateTime } = require('luxon');
 
 //
-const fs = require('fs');
 const htmlmin = require('html-minifier');
 
 //
@@ -29,10 +29,9 @@ const isProduction = process.env.NODE_ENV === 'production';
 module.exports = function (eleventyConfig) {
 
     //
-    // add 11ty's plugin
+    // eleventy-plugin-directory-output
     //
 
-    eleventyConfig.setQuietMode(true);
     eleventyConfig.addPlugin(directoryOutputPlugin, {
         columns: {
             filesize: true,
@@ -42,13 +41,19 @@ module.exports = function (eleventyConfig) {
     });
 
     //
-    // add 11ty's Collection
+    // 11ty Quiet Mode
+    //
+
+    eleventyConfig.setQuietMode(true);
+
+    //
+    // 11ty Collections
     //
 
     eleventyConfig.addCollection('contentsSections', collections.contentsSections);
 
     //
-    // add 11ty's Filer
+    // 11ty Filer
     //
 
     eleventyConfig.addFilter('setMyCustomOrder', filters.setMyCustomOrder);
@@ -71,14 +76,14 @@ module.exports = function (eleventyConfig) {
     });
 
     //
-    // add 11ty's Shorrtcode
+    // 11ty Shorrtcode
     //
 
     eleventyConfig.addShortcode('setLightbox2', shortcodes.setLightbox2);
     eleventyConfig.addShortcode('setOneImage', shortcodes.setOneImage);
 
     //
-    // set Markdown-it
+    // Markdown-it
     //
 
     let markdownIt_options = {
@@ -91,7 +96,7 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.setLibrary('md', markdownLib);
 
     //
-    // set 11ty's Nunjucks
+    // 11ty Nunjucks Environment Options
     //
 
     eleventyConfig.setNunjucksEnvironmentOptions({
@@ -100,7 +105,7 @@ module.exports = function (eleventyConfig) {
     });
 
     //
-    // set 11ty's Passthrough File Copy
+    // 11ty Passthrough File Copy
     //
 
     eleventyConfig.addPassthroughCopy({ './source/static/assets/style/custom.css': './assets/style/custom.css' });
@@ -108,41 +113,59 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPassthroughCopy({ './source/static/misc/**/*': './' });
 
     //
-    // chech develop or produuction ?
-    //
-    // Sorry, I don't fully understand `addTransform` and `setBrowserSyncConfig`.
-    //
 
     if (isProduction) {
-        // Compress HTML if in product mode
-        eleventyConfig.addTransform('htmlmin', htmlminTransform);
-    } else {
-        // Launch the browser daemon if in development mode
-        eleventyConfig.setBrowserSyncConfig({
-            callbacks: { ready: browserSyncReady },
+        //
+        // set html-minifier
+        //
+        eleventyConfig.addTransform('htmlmin', function(content) {
+            if (this.page.outputPath && this.page.outputPath.endsWith('.html')) {
+                let minified = htmlmin.minify(content, {
+                    useShortDoctype: true,
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    minifyCSS: true,
+                    minifyJS: true,
+                });
+                return minified;
+            }
+            return content;
         });
+    } else {
+        //
+        // eleventy-dev-server, included with 11ty's installation
+        //
+        eleventyConfig.setServerOptions({
+            liveReload: true,
+            domDiff: true,
+            port: 8080,
+            watch: [],
+            showAllHosts: false,
+            https: {},
+            encoding: 'utf-8',
+            showVersion: false,
+          });
     }
 
     //
     // display 11ty's events
     //
 
-    eleventyConfig.on('eleventy.beforeWatch', async function () {
-        console.log('----  eleventy.beforeWatch  ----');
-    });
+    if (! isProduction) {
+        eleventyConfig.on('eleventy.beforeWatch', async function () {
+            console.log('----  eleventy.beforeWatch  ----');
+        });
 
-    eleventyConfig.on('eleventy.before', async function () {
-        console.log('----  eleventy.before       ----');
-    });
+        eleventyConfig.on('eleventy.before', async function () {
+            console.log('----  eleventy.before       ----');
+        });
 
-    eleventyConfig.on('eleventy.after', async function () {
-        console.log('----  eleventy.after        ----');
-    });
+        eleventyConfig.on('eleventy.after', async function () {
+            console.log('----  eleventy.after        ----');
+        });
+    }
 
     //
-    // set 11ty's configuration
-    //
-
     return {
         markdownTemplateEngine: 'njk',
         dataTemplateEngine: 'njk',
@@ -154,36 +177,3 @@ module.exports = function (eleventyConfig) {
         }
     };
 };
-
-//
-//
-//
-
-function htmlminTransform(content, outputPath) {
-    if (!outputPath) {
-        return content;
-    }
-
-    if (outputPath.endsWith('.html')) {
-        let minified = htmlmin.minify(content, {
-            // 【備忘録】HTMLMinifierの全オプションについて調査した - Qiita
-            //  https://qiita.com/ryo_hisano/items/9d41cd447a69943f8eb1
-            useShortDoctype: true,
-            removeComments: true,
-            collapseWhitespace: true,
-            minifyJS: true
-        });
-        return minified;
-    }
-
-    return content;
-}
-
-function browserSyncReady(err, bs) {
-    bs.addMiddleware('*', (req, res) => {
-        const content_404 = fs.readFileSync('./_develop/404.html');
-        res.write(content_404);
-        res.writeHead(404);
-        res.end();
-    });
-}
