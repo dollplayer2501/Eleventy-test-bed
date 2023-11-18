@@ -4,18 +4,18 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "develop:check": "ncu",
-        "develop:update": "ncu -u",
+        "develop:ncu:check": "ncu",
+        "develop:ncu:update": "ncu -u",
         "develop:clean": "rimraf ./_develop",
-        "develop:eleventy:build": "cross-env NODE_ENV=develop npx @11ty/eleventy --config=Eleventy.js --quiet",
-        "develop:eleventy:watch": "cross-env NODE_ENV=develop npx @11ty/eleventy --config=Eleventy.js --quiet --serve --port=8080",
+        "develop:eleventy:build": "cross-env NODE_ENV=develop npx @11ty/eleventy",
+        "develop:eleventy:watch": "cross-env NODE_ENV=develop npx @11ty/eleventy --serve --port=8080",
         "develop:clear-build": "npm-run-all --serial develop:clean develop:eleventy:build",
         "develop:only-build": "npm-run-all --serial develop:eleventy:build",
         "develop:watch": "npm-run-all --serial develop:clean develop:eleventy:watch",
         "product:clean": "rimraf ./_production",
-        "product:eleventy:build": "cross-env NODE_ENV=production npx @11ty/eleventy --config=Eleventy.js",
+        "product:eleventy:build": "cross-env NODE_ENV=production npx @11ty/eleventy",
         "product:build": "npm-run-all --serial product:clean product:eleventy:build",
-        "product:serve": "cd ./_production && npx serve"
+        "product:serve": "npx serve ./_production -p 3000"
     },
     "keywords": [],
     "author": "",
@@ -26,12 +26,12 @@
         "cross-env": "^7.0.3",
         "html-escaper": "^3.0.3",
         "html-minifier": "^4.0.0",
-        "luxon": "^3.3.0",
-        "markdown-it": "^13.0.1",
-        "npm-check-updates": "^16.10.12",
+        "luxon": "^3.4.4",
+        "markdown-it": "^13.0.2",
+        "npm-check-updates": "^16.14.6",
         "npm-run-all": "^4.1.5",
-        "rimraf": "^5.0.1",
-        "serve": "^14.2.0",
-        "sprintf-js": "^1.1.2"
+        "rimraf": "^5.0.5",
+        "serve": "^14.2.1",
+        "sprintf-js": "^1.1.3"
     }
 }
