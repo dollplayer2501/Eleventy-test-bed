@@ -1,3 +1,2 @@
 [tools]
-node = "18"
-nodejs = "16"
+node = "20.9.0"
