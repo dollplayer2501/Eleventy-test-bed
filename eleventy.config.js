@@ -21,7 +21,7 @@ const { DateTime } = require('luxon');
 const htmlmin = require('html-minifier');
 
 //
-const isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'product';
 
 //
 //
@@ -173,7 +173,7 @@ module.exports = function (eleventyConfig) {
         dir: {
             input: './source',
             layouts: './_includes/layouts',
-            output: isProduction ? './_production' : './_develop'
+            output: isProduction ? './_product' : './_develop'
         }
     };
 };
