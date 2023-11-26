@@ -40,7 +40,7 @@ By the way, I'm not good at Javascript.
     # http://localhost:8080
 
     # 2. Production
-    #   Data is stored in ./any-path-name/_production
+    #   Data is stored in ./any-path-name/_product
     #   HTML is compressed
     #
     npm run product:build
