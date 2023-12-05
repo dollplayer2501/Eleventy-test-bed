@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ collections.all | setMyCustomOrder | getHeadTitle(page, site.name, '&raquo;') }}</title>
         <meta name="generator" content="{{ eleventy.generator | safe }}" />
-        <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/css/lightbox.min.css">
+        <link rel="stylesheet" href="/assets/styles/{% if 'product' == isProduction %}pico.min.css{% else %}pico.css{% endif %}">
+        <link rel="stylesheet" href="/assets/styles/{% if 'product' == isProduction %}lightbox.min.css{% else %}lightbox.css{% endif %}">
         <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.GoogleAnalytics4 | safe}}"></script>
         <link rel="icon" href="/favicon.ico" />
         <script>
@@ -60,7 +60,7 @@
             {% include 'partials/footer.njk' %}
         </footer>
 
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.1/js/lightbox-plus-jquery.min.js"></script>
+        <script src="/assets/scripts/{% if 'product' == isProduction %}lightbox-plus-jquery.min.js{% else %}lightbox-plus-jquery.js{% endif %}"></script>
         <script>
             lightbox.option({
                 'resizeDuration': 400,

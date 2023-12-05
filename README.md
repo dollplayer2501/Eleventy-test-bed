@@ -10,18 +10,19 @@
 
 <img src="./screenshot.png" width="600">
 
-This is not something that can be used in a production environment as it is.
-I made this to see the functionality of Eleventy.
-What I can say for sure is "I made it because I need it, and I published it on GitHub".  
-By the way, I'm not good at Javascript.
+
+> **Note**  
+> __2023-12-05, JST__  
+> There are problems in using [Lightbox2](https://lokeshdhakar.com/projects/lightbox2/) with the combination of [Pico.css](https://www.npmjs.com/package/@picocss/pico) **v1.5.10**, the latest version at the moment, and **v2.11.4**, the latest version of [lightbox2](https://www.npmjs.com/package/lightbox2).  
+> To avoid this, I have fixed the combination of versions below.  
+>
+> - [Pico.css](https://www.npmjs.com/package/@picocss/pico) v1.5.10
+> - **[Lightbox2 v2.11.3](https://www.npmjs.com/package/lightbox2/v/2.11.3)**
+>
+> With my skills, I don't know how to get around this.
 
 
 ## Getting started
-
-> **Note**  
-> __2023-06-10, JST__  
-> I changed NPM pachage manager from [nvm](https://github.com/nvm-sh/nvm) to [rtx](https://github.com/jdxcode/rtx).  
-> And I am in the process of migrating my development environment itself from macOS to Linux...[EndeavourOS](https://endeavouros.com/) and Zsh to Fish shell.
 
     git clone git@github.com:dollplayer2501/Eleventy-test-bed.gitt any-path-name
     cd any-path-name
@@ -47,40 +48,6 @@ By the way, I'm not good at Javascript.
     # If you want to check production's data
     npm run product:serve
     # http://localhost:3000
-
-
-## Implemented Eleventy's functions
-
-Mainly implements the following functions.
-
-- [Shortcodes](https://www.11ty.dev/docs/shortcodes/)
-- [Filters](https://www.11ty.dev/docs/filters/)
-- [Nunjucks](https://www.11ty.dev/docs/languages/nunjucks/)
-- [Markdown](https://www.11ty.dev/docs/languages/markdown/) via [markdown-it](https://www.npmjs.com/package/markdown-it)
-- [Passthrough File Copy](https://www.11ty.dev/docs/copy/)
-- [Directory output plugin](https://www.11ty.dev/docs/plugins/directory-output/)
-- Top and 404 page, and one more page
-- Separation between local environment and production environment  
-Specifically, isolation of the output directory and compression of HTML only in the production environment.
-- Implementation of unique sort order described later
-
-The following **mainly** functions are not implemented.
-
-- [Collections (using tags)](https://www.11ty.dev/docs/collections/)  
-but I use [Custom filtering and sorting](https://www.11ty.dev/docs/collections/#advanced-custom-filtering-and-sorting).
-- [Pagination](https://www.11ty.dev/docs/pagination/)
-- [Navigation plugin](https://www.11ty.dev/docs/plugins/navigation/)
-- [Image plugin](https://www.11ty.dev/docs/plugins/image/)  
-Instead of this, implement [lightbbox2](https://lokeshdhakar.com/projects/lightbox2/)
-- Compiling the CSS preprocessor, for example Sass, SCSS  
-I use [Pico.css](https://picocss.com/)'s [Basic template](https://picocss.com/examples/basic-template/).
-- Javascript bundles and transpiles
-
-Below, I'm not familiar with it, but I'm implementing it.
-
-- [Transform](https://www.11ty.dev/docs/config/#transforms)  
-I use it, but I don't know the details.
-- `.editorconfig`, `.jsbeautifyrc`
 
 
 ## The concept of sorting articles that I implemented
@@ -130,67 +97,6 @@ There is a discrepancy in the implementation, I made this after building the fol
 
 - Site URL: [unlimited text works, the 4th.](https://dollplayer2501.netlify.app/)
 - Source code: [dollplayer2501/Eleventy-netlify-V2: Eleventy with Laravel Mix, Gulp](https://github.com/dollplayer2501/Eleventy-netlify-V2)
-
-
-
-- - -
-
-
-
-Below, Japanese translation.
-
-
-## これは何？
-
-これは、このままで本番環境で利用できる物ではありません。
-私は、Eleventyの機能を確認するため、これを作りました。
-確実に言えるのは、「私がこれを必要とするので作った、そしてGitHubに公開した」になります。  
-ちなみに私はJavascriptが苦手です。
-
-
-## 私が実装した、記事群のソートの概念
-
-- 記事群のソートは、Eleventyのタグやナビゲーションプラグインやファイル日付や日付を使わず、プログラム内部で独自のソート処理を行なっています。
-- 最低限、同じレベルでソート順を合わせる必要があります。
-- 私が格納している`./source/contents/`内の*.mdファイルと、生成されるHTMLファイルを見比べれば、挙動が理解できると思います。
-- 実装はEleventyのFilterとして、`./source/_config/eleventy.filters.js` に実装しています。
-- この考え方と実装は、Eleventyの利点を消す行為かもしれませんが、私には分かりません。
-
-&nbsp;
-
-- Path & file name  
-ローカルPCに格納されているパスとファイル名。
-- URL  
-*.mdファイルに記述するURL。
-- Order  
-Eleventyの機能には無い、このシステム独自のソート順。
-*.mdファイルに記述する。
-- In-program sort order  
-EleventyのFilter機能で、パスとファイル名を分解し、独自のソート文字列を作成している。
-Filterで、パスとファイル名を分解し、独自のソート文字列を作成している。
-この文字列をキーとして、文字列ソートを行なっている。
-プログラム内部は、「_」ではなく、sprintf-jsを使用して、スペースを使用しており、12桁である。
-
-
-## 本音
-
-私は、Eleventyのナビゲーションプラグインとイメージプラグインの挙動を確認したいと思いました。
-そのため、私は、私が必要とする最小限のEleventyを構築していました。
-その最中、私は、これを広く公開するのも面白そうだ、と思いました。  
-これが本音です。
-
-実装に齟齬がある、下記のサイトの構築後にこれを作った、になりますが、参考までに、下記URLは、私が運用しているEleventyを使用したサイトになります。
-
-- Site URL: [unlimited text works, the 4th.](https://dollplayer2501.netlify.app/)
-- Source code: [dollplayer2501/Eleventy-netlify-V2: Eleventy with Laravel Mix, Gulp](https://github.com/dollplayer2501/Eleventy-netlify-V2)
-
-
-
-
-
-
-
-
 
 
 //

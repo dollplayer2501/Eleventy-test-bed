@@ -103,14 +103,33 @@ module.exports = function (eleventyConfig) {
         throwOnUndefined: true,
         autoescape: false, // warning: don’t do this!
     });
+    eleventyConfig.addNunjucksGlobal('isProduction', isProduction ? 'product' : 'develop');
 
     //
     // 11ty Passthrough File Copy
     //
 
-    eleventyConfig.addPassthroughCopy({ './source/static/assets/style/custom.css': './assets/style/custom.css' });
-    eleventyConfig.addPassthroughCopy({ './source/contents/**/*.{jpg,jpeg,png,webp}': './images' });
-    eleventyConfig.addPassthroughCopy({ './source/static/misc/**/*': './' });
+    eleventyConfig.addPassthroughCopy({
+        './source/contents/**/*.{jpg,jpeg,png,webp}': './images',
+        './source/static/**/*': './',
+    });
+    //
+    if (isProduction) {
+        eleventyConfig.addPassthroughCopy({
+            './node_modules/@picocss/pico/css/pico.min.css': './assets/styles/pico.min.css',
+            './node_modules/lightbox2/dist/js/lightbox-plus-jquery.min.js': './assets/scripts/lightbox-plus-jquery.min.js',
+            './node_modules/lightbox2/dist/css/lightbox.min.css': './assets/styles/lightbox.min.css',
+            './node_modules/lightbox2/dist/images/**/*': './assets/images/',
+        });
+    } else {
+        eleventyConfig.addPassthroughCopy({
+            './node_modules/@picocss/pico/css/pico.min.css': './assets/styles/pico.css',
+            './node_modules/@picocss/pico/css/pico.min.css.map': './assets/styles/pico.css.map',
+            './node_modules/lightbox2/dist/js/lightbox-plus-jquery.js': './assets/scripts/lightbox-plus-jquery.js',
+            './node_modules/lightbox2/dist/css/lightbox.css': './assets/styles/lightbox.css',
+            './node_modules/lightbox2/dist/images/**/*': './assets/images/',
+        });
+    }
 
     //
 
