@@ -8,9 +8,9 @@
         "ncu:update": "ncu -u",
         "develop:clean": "rimraf ./_develop",
         "develop:eleventy:build": "cross-env NODE_ENV=develop npx @11ty/eleventy",
-        "develop:eleventy:watch": "cross-env NODE_ENV=develop npx @11ty/eleventy --serve --port=8080",
-        "develop:clear-build": "npm-run-all --serial develop:clean develop:eleventy:build",
-        "develop:only-build": "npm-run-all --serial develop:eleventy:build",
+        "develop:eleventy:watch": "cross-env NODE_ENV=develop npx @11ty/eleventy --serve",
+        "develop:build:clean": "npm-run-all --serial develop:clean develop:eleventy:build",
+        "develop:build:only": "npm-run-all --serial develop:eleventy:build",
         "develop:watch": "npm-run-all --serial develop:clean develop:eleventy:watch",
         "product:clean": "rimraf ./_product",
         "product:eleventy:build": "cross-env NODE_ENV=product npx @11ty/eleventy",
@@ -33,5 +33,9 @@
         "rimraf": "^5.0.5",
         "serve": "^14.2.1",
         "sprintf-js": "^1.1.3"
+    },
+    "dependencies": {
+        "@picocss/pico": "1.5.10",
+        "lightbox2": "2.11.3"
     }
 }
