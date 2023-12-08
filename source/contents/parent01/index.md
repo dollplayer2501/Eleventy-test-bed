@@ -4,6 +4,7 @@ permalink: /parent01/index.html
 order: 20
 layout: post.njk
 date: 2022-10-20 00:00:01
+toc: false
 ---
 
 In sint veniam ut voluptas obcaecati in Quis maiores cum ratione commodi recusandae dolor! Aut explicabo maiores aut vitae mollitia sit debitis voluptas ut assumenda labore?

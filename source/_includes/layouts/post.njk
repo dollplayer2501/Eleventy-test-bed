@@ -2,5 +2,10 @@
 
 
 {% block contentMain %}
+    {% if true == toc %}
+        <hr class="hoge" />
+        {{ content | toc | safe }}
+    {% endif %}
+
     {{ content | safe }}
 {% endblock %}

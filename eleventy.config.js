@@ -4,7 +4,8 @@
 //
 
 //
-const directoryOutputPlugin = require('@11ty/eleventy-plugin-directory-output');
+const pluginDirectoryOutput = require('@11ty/eleventy-plugin-directory-output');
+const pluginTOC = require('eleventy-plugin-toc');
 
 //
 const collections = require('./source/_config/eleventy.collections.js');
@@ -13,6 +14,7 @@ const shortcodes = require('./source/_config/eleventy.shortcodes.js');
 
 //
 const markdownIt = require('markdown-it');
+const markdownItAnchor = require('markdown-it-anchor');
 
 //
 const { DateTime } = require('luxon');
@@ -22,6 +24,20 @@ const htmlmin = require('html-minifier');
 
 //
 const isProduction = process.env.NODE_ENV === 'product';
+//
+const mdOptions = {
+    html: true,
+    breaks: true,
+    linkify: true,
+    typographer: true
+};
+const mdAnchorOpts = {
+    permalink: true,
+    permalinkClass: 'anchor-link',
+    permalinkSymbol: '#',
+    level: [1, 2, 3, 4]
+};
+
 
 //
 //
@@ -32,7 +48,7 @@ module.exports = function (eleventyConfig) {
     // eleventy-plugin-directory-output
     //
 
-    eleventyConfig.addPlugin(directoryOutputPlugin, {
+    eleventyConfig.addPlugin(pluginDirectoryOutput, {
         columns: {
             filesize: true,
             benchmark: true,
@@ -86,14 +102,28 @@ module.exports = function (eleventyConfig) {
     // Markdown-it
     //
 
-    let markdownIt_options = {
-        // https://github.com/markdown-it/markdown-it#init-with-presets-and-options
-        html: true,
-        breaks: true,
-        linkify: true,
-    };
-    let markdownLib = markdownIt(markdownIt_options);
-    eleventyConfig.setLibrary('md', markdownLib);
+//    let markdownIt_options = {
+//        // https://github.com/markdown-it/markdown-it#init-with-presets-and-options
+//        html: true,
+//        breaks: true,
+//        linkify: true,
+//    };
+//    let markdownLib = markdownIt(markdownIt_options);
+//    eleventyConfig.setLibrary('md', markdownLib);
+
+    eleventyConfig.setLibrary(
+        'md',
+        markdownIt(mdOptions)
+        .use(markdownItAnchor, mdAnchorOpts)
+    );
+
+    eleventyConfig.addPlugin(pluginTOC, {
+        tags: ['h2', 'h3', 'h4'], // which heading tags are selected headings must each have an ID attribute
+        wrapper: 'div',           // element to put around the root `ol`/`ul`
+        wrapperClass: 'toc',      // class for the element around the root `ol`/`ul`
+        ul: true,                 // if to use `ul` instead of `ol`
+        flat: false,              // if subheadings should appear as child of parent or as a sibling
+    });
 
     //
     // 11ty Nunjucks Environment Options
@@ -165,6 +195,9 @@ module.exports = function (eleventyConfig) {
             showVersion: false,
           });
     }
+
+    eleventyConfig.addWatchTarget('./source/contents/**/*.md');
+    eleventyConfig.addWatchTarget('./source/sections/**/*.md');
 
     //
     // display 11ty's events
